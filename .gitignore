@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 ExternalLibraries/*
+ExternalLibraries/SFML-2.6.1
 
 # Compiled Object files
 *.slo
