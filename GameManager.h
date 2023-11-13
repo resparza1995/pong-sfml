@@ -17,5 +17,6 @@ private:
     unsigned int score2 = 0;
 
     void ballCollision(const sf::FloatRect& ball, const sf::FloatRect& player, const sf::FloatRect& player2);
-    void closeWindowHandler(sf::RenderWindow& window, sf::Event& event);
+    void windowHandler(sf::RenderWindow& window, sf::Event& event);
+
 };

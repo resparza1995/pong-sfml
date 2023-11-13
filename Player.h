@@ -5,14 +5,12 @@ class Player
 {
 
 public:
-	unsigned int id = 0;
+	const float speed = 0.5f;
 	sf::RectangleShape ping;
 
 	Player(const sf::Color& color, const sf::Vector2f& pos);
 	//~Player();
 	void move(float y);
-
-private:
 
 };
 
