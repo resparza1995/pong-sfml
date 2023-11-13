@@ -1,13 +1,19 @@
 #include "UIManager.h"
-/*
-    sf::Font font;
-if (!font.loadFromFile("./Fonts/PixelifySans-Regular.ttf")) {
-    // Maneja el caso en que la fuente no se pudo cargar
-    return EXIT_FAILURE;
+#include <SFML/Graphics.hpp>
+#include <string>
+
+UIManager::UIManager()
+{
+	font.loadFromFile("./Fonts/PixelifySans-Regular.ttf");
+	setScore(0, 0);
 }
-sf::Text text;
-text.setFont(font);
-text.setString("Hello world");
-text.setCharacterSize(24);  // Tamaño del texto en puntos
-text.setFillColor(sf::Color::White); // Color del texto
-*/
+
+void UIManager::setScore(int score1, int score2)
+{
+	std::string txt = std::to_string(score1) + " - " + std::to_string(score2);
+	scoreTxt.setFont(font);
+	scoreTxt.setString(txt);
+	scoreTxt.setCharacterSize(30);  // Tamaño del scoreTxto en puntos
+	scoreTxt.setFillColor(sf::Color::White); // Color del texto
+	scoreTxt.setPosition(400, 0);
+}
