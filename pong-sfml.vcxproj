@@ -143,17 +143,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="UIManager.cpp" />
+    <ClCompile Include="Source\Ball.cpp" />
+    <ClCompile Include="Source\Game.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Menu.cpp" />
+    <ClCompile Include="Source\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="GameManager.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="UIManager.h" />
+    <ClInclude Include="Headers\Ball.h" />
+    <ClInclude Include="Headers\Game.h" />
+    <ClInclude Include="Headers\Menu.h" />
+    <ClInclude Include="Headers\MenuOption.h" />
+    <ClInclude Include="Headers\Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

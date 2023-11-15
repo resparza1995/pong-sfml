@@ -4,7 +4,7 @@
 class Ball
 {
 public:
-	sf::CircleShape ball;
+	sf::CircleShape shape;
 
 	Ball();
 	//~Ball();
