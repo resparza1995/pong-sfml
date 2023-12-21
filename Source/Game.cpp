@@ -25,22 +25,30 @@ void Game::runGame() {
 	int prevItem = 0;
 	float playerSpeed = 0.05f;
 	bool inMenu = true;
+	bool swapMove = false;
 
 	menu.selectOpt(0, sf::Color::Red);
 	sf::Event event;
 	while (window.isOpen())
 	{
 		window.clear();
+		drawGameObjects(window, scoreText, player1.shape, player2.shape, ball.shape, inMenu);
 		if (inMenu)
 		{
 			handleMenu(window, menu, inMenu);
 			drawMenu(window, menu);
+
+			unsigned int scoreTo = ballCollision(ball.shape.getGlobalBounds(), player1.shape.getGlobalBounds(), player2.shape.getGlobalBounds());
+			if (scoreTo > 0) swapMove = !swapMove;
+			ball.move(ballPosX, ballPosY);
+
+			if (!swapMove) player2.autoMove(ball);
+			else player1.autoMove(ball);
 		}
 		else
 		{
 			handlePlayerMovement(player1, player2, playerSpeed);
 			handleGameInput(inMenu);
-			drawGameObjects(window, scoreText, player1.shape, player2.shape, ball.shape);
 
 			unsigned int scoreTo = ballCollision(ball.shape.getGlobalBounds(), player1.shape.getGlobalBounds(), player2.shape.getGlobalBounds());
 			scoreHandler(scoreTo);
@@ -62,8 +70,6 @@ unsigned int Game::ballCollision(const sf::FloatRect& ball, const sf::FloatRect&
 		}
 		else {
 			ballPosX = -ballPosX;
-			score1++;
-			return 1;
 		}
 	}
 	else if (ball.intersects(player2))
@@ -74,13 +80,12 @@ unsigned int Game::ballCollision(const sf::FloatRect& ball, const sf::FloatRect&
 		}
 		else {
 			ballPosX = -ballPosX;
-			score2++;
-			return 2;
 		}
 	}
 	else if (ball.left <= board.left || ball.left + ball.width >= board.left + board.width)
 	{
 		ballPosX = -ballPosX;
+		return ball.left < 0 ? 1 : 2;
 	}
 	else if (ball.top <= board.top || ball.top + ball.height >= board.top + board.height)
 	{
@@ -104,13 +109,13 @@ MenuOption Game::windowHandler(sf::RenderWindow& window, sf::Event& event) {
 void Game::scoreHandler(unsigned int scoreTo) {
 	switch (scoreTo)
 	{
-		case 1:
-			setScoreText(score1++, score2);
-			break;
+	case 1:
+		setScoreText(score1++, score2);
+		break;
 
-		case 2:
-			setScoreText(score1, score2++);
-			break;
+	case 2:
+		setScoreText(score1, score2++);
+		break;
 	}
 }
 
@@ -161,7 +166,8 @@ void Game::handleMenu(sf::RenderWindow& window, Menu& menu, bool& inMenu)
 	}
 }
 
-void Game::handlePlayerMovement(Player& player1, Player& player2, float playerSpeed) {
+void Game::handlePlayerMovement(Player& player1, Player& player2, float playerSpeed) 
+{
 	// player1 movement
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		player1.move(-playerSpeed);
@@ -179,14 +185,22 @@ void Game::handlePlayerMovement(Player& player1, Player& player2, float playerSp
 	}
 }
 
-void Game::handleGameInput(bool& inMenu) {
+void Game::handleGameInput(bool& inMenu) 
+{
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 		inMenu = true;
 	}
 }
 
-void Game::drawGameObjects(sf::RenderWindow& window, const sf::Text& scoreText, const sf::RectangleShape& player1, const sf::RectangleShape& player2, const sf::CircleShape& ball) {
-	window.draw(scoreText);
+void Game::drawGameObjects(sf::RenderWindow& window,
+	const sf::Text& scoreText,
+	const sf::RectangleShape& player1,
+	const sf::RectangleShape& player2,
+	const sf::CircleShape& ball,
+	bool inMenu)
+{
+	if (!inMenu) window.draw(scoreText);
+
 	window.draw(player1);
 	window.draw(player2);
 	window.draw(ball);

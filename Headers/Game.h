@@ -25,7 +25,7 @@ private:
     void setScoreText(unsigned int score1, unsigned int score2);
     void drawMenu(sf::RenderWindow& window, Menu& menu);
     void handleMenu(sf::RenderWindow& window, Menu& menu, bool& inMenu);
-    void drawGameObjects(sf::RenderWindow& window, const sf::Text& scoreText, const sf::RectangleShape& player1, const sf::RectangleShape& player2, const sf::CircleShape& ball);
+    void drawGameObjects(sf::RenderWindow& window, const sf::Text& scoreText, const sf::RectangleShape& player1, const sf::RectangleShape& player2, const sf::CircleShape& ball, bool inMenu);
     void handleGameInput(bool& inMenu);
     void handlePlayerMovement(Player& player1, Player& player2, float playerSpeed);
 };
