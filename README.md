@@ -7,5 +7,4 @@ Classic Pong game made with **C++** and **SFML 2.6.1** Library
 ## Features
 When is in menu, players are playing machine vs machine and score text is not shown.
 When match starts, score text appears up. 
-When a player hits the ball, scores 1.
 Pause pressing ESC.
